@@ -1,0 +1,34 @@
+﻿@model List<EcommerceApp.Models.Product>
+@{
+    ViewData["Title"] = "Products";
+}
+<h2>Your Products</h2>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Stock</th>
+            <th>Category</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var product in Model)
+        {
+            <tr>
+                <td>@product.Name</td>
+                <td>@product.Price</td>
+                <td>@product.Stock</td>
+                <td>@product.Category</td>
+                <td>
+                    <a href="/Admin/EditProduct/@product.Id" class="btn btn-sm btn-primary">Edit</a>
+                    <button onclick="deleteProduct(@product.Id)" class="btn btn-sm btn-danger">Delete</button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+@section Scripts {
+    <script src="~/js/admin.js"></script>
+}

@@ -1,0 +1,40 @@
+﻿@model List<EcommerceApp.Models.Product>
+@{
+    ViewData["Title"] = "Home";
+    var categories = ViewBag.Categories as List<string>;
+}
+<h2>Products</h2>
+<div class="mb-3">
+    <label>Search by Category</label>
+    <select id="categorySelect" class="form-select" onchange="window.location.href = '/User/Home?category=' + this.value">
+        <option value="">All</option>
+        @foreach (var cat in categories)
+        {
+            <option value="@cat">@cat</option>
+        }
+    </select>
+</div>
+<div class="row">
+    @foreach (var product in Model)
+    {
+        <div class="col-6 col-md-3 mb-4">
+            <div class="card h-100 shadow">
+                <img src="@product.ImageUrl" class="card-img-top" alt="@product.Name" style="height: 200px; object-fit: cover;" />
+                <div class="card-body">
+                    <h5 class="card-title">@product.Name</h5>
+                    <p class="card-text">@product.Description</p>
+                    <p class="card-text"><strong>Price:</strong> $@product.Price</p>
+                    <p class="card-text"><strong>Stock:</strong> @product.Stock</p>
+                    <p class="card-text"><strong>Category:</strong> @product.Category</p>
+                </div>
+                <div class="card-footer">
+                    <input type="number" id="qty-@product.Id" value="1" min="1" max="@product.Stock" class="form-control mb-2" />
+                    <button onclick="orderProduct('@product.Id', '@product.Name', '@product.Price', '@product.ImageUrl')" class="btn btn-success w-100">Order via WhatsApp</button>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+@section Scripts {
+    <script src="~/js/user.js"></script>
+}

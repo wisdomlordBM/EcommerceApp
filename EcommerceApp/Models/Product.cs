@@ -1,4 +1,6 @@
-﻿namespace EcommerceApp.Models
+﻿using System;
+
+namespace EcommerceApp.Models
 {
     public class Product
     {
@@ -8,6 +10,7 @@
         public decimal Price { get; set; }
         public string ImageUrl { get; set; }
         public int Stock { get; set; }
+        public string Category { get; set; }
+        public Guid OwnerId { get; set; } // Links to Admin/User Id
     }
-
 }

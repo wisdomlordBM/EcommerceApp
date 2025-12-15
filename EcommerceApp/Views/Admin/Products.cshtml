@@ -1,34 +1,174 @@
-﻿@model List<EcommerceApp.Models.Product>
+﻿@* @model List<EcommerceApp.Models.Product>
 @{
-    ViewData["Title"] = "Products";
+    ViewData["Title"] = "My Products";
 }
-<h2>Your Products</h2>
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th>Name</th>
-            <th>Price</th>
-            <th>Stock</th>
-            <th>Category</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var product in Model)
-        {
-            <tr>
-                <td>@product.Name</td>
-                <td>@product.Price</td>
-                <td>@product.Stock</td>
-                <td>@product.Category</td>
-                <td>
-                    <a href="/Admin/EditProduct/@product.Id" class="btn btn-sm btn-primary">Edit</a>
-                    <button onclick="deleteProduct(@product.Id)" class="btn btn-sm btn-danger">Delete</button>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+<link href="~/css/admin.css" rel="stylesheet" />
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="fw-bold">Your Products</h2>
+        <a href="/Admin/CreateProduct" class="btn btn-success">
+            + Add New Product
+        </a>
+    </div>
+
+    @if (!Model.Any())
+    {
+        <div class="alert alert-info">
+            No products yet. Start by adding one.
+        </div>
+    }
+    else
+    {
+        <div class="row g-4">
+            @foreach (var product in Model)
+            {
+                <div class="col-md-4 col-lg-3">
+                    <div class="card product-card h-100 border-0 shadow-sm">
+
+                        <div class="product-img-wrapper">
+                            <img src="@(string.IsNullOrEmpty(product.ImageUrl)
+                                ? "/images/placeholder.png"
+                                : product.ImageUrl)"
+                                 alt="@product.Name"
+                                 class="product-img" />
+                        </div>
+
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="fw-semibold">@product.Name</h5>
+
+                            <p class="text-muted mb-1">
+                                ₦@product.Price.ToString("N2")
+                            </p>
+
+                            <small class="text-secondary">
+                                Stock: @product.Stock
+                            </small>
+
+                            <span class="badge bg-light text-dark mt-2">
+                                @product.Category
+                            </span>
+
+                            <div class="mt-auto d-flex gap-2 pt-3">
+                                <a href="/Admin/EditProduct/@product.Id"
+                                   class="btn btn-sm btn-outline-primary w-100">
+                                    Edit
+                                </a>
+
+                                <button onclick="deleteProduct(@product.Id)"
+                                        class="btn btn-sm btn-outline-danger w-100">
+                                    Delete
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</div>
+
+@section Scripts {
+    <script src="~/js/admin.js"></script>
+}
+ *@
+
+                                @model List<EcommerceApp.Models.Product>
+@{
+    ViewData["Title"] = "My Products";
+}
+<link href="~/css/admin.css" rel="stylesheet" />
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
+<div class="container mt-4">
+
+    <!-- Page Header -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h2 class="fw-bold mb-0">Your Products</h2>
+            <small class="text-muted">
+                Manage and organize your inventory
+            </small>
+        </div>
+
+        <a href="/Admin/CreateProduct" class="btn btn-success d-flex align-items-center gap-2">
+            <i class="bi bi-plus-circle"></i>
+            Add Product
+        </a>
+    </div>
+
+    <!-- Empty State -->
+    @if (!Model.Any())
+    {
+        <div class="card border-0 shadow-sm">
+            <div class="card-body text-center py-5">
+                <i class="bi bi-box-seam fs-1 text-muted mb-3"></i>
+                <h5 class="fw-semibold">No products yet</h5>
+                <p class="text-muted mb-3">
+                    Start by adding your first product to the store.
+                </p>
+                <a href="/Admin/CreateProduct" class="btn btn-primary">
+                    Add Your First Product
+                </a>
+            </div>
+        </div>
+    }
+    else
+    {
+        <!-- Product Grid -->
+        <div class="row g-4">
+            @foreach (var product in Model)
+            {
+                <div class="col-md-4 col-lg-3">
+                    <div class="card product-card h-100 border-0 shadow-sm">
+
+                        <div class="product-img-wrapper">
+                            <img src="@(string.IsNullOrEmpty(product.ImageUrl)
+                                ? "/images/placeholder.png"
+                                : product.ImageUrl)"
+                                 alt="@product.Name"
+                                 class="product-img" />
+                        </div>
+
+                        <div class="card-body d-flex flex-column">
+                            <h6 class="fw-semibold mb-1">
+                                @product.Name
+                            </h6>
+
+                            <p class="text-muted small mb-1">
+                                ₦@product.Price.ToString("N2")
+                            </p>
+
+                            <small class="text-secondary">
+                                Stock: @product.Stock
+                            </small>
+
+                            <span class="badge bg-light text-dark mt-2 align-self-start">
+                                @product.Category
+                            </span>
+
+                            <!-- Actions -->
+                            <div class="mt-auto d-flex gap-2 pt-3">
+                                <a href="/Admin/EditProduct/@product.Id"
+                                   class="btn btn-sm btn-outline-primary w-100 d-flex align-items-center justify-content-center gap-1">
+                                    <i class="bi bi-pencil-square"></i>
+                                    Edit
+                                </a>
+
+                                <button onclick="deleteProduct(@product.Id)"
+                                        class="btn btn-sm btn-outline-danger w-100 d-flex align-items-center justify-content-center gap-1">
+                                    <i class="bi bi-trash"></i>
+                                    Delete
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</div>
+
 @section Scripts {
     <script src="~/js/admin.js"></script>
 }

@@ -3,6 +3,8 @@
     ViewData["Title"] = "Home";
     var categories = ViewBag.Categories as List<string>;
 }
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
 <h2>Products</h2>
 <div class="mb-3">
     <label>Search by Category</label>
@@ -29,7 +31,17 @@
                 </div>
                 <div class="card-footer">
                     <input type="number" id="qty-@product.Id" value="1" min="1" max="@product.Stock" class="form-control mb-2" />
-                    <button onclick="orderProduct('@product.Id', '@product.Name', '@product.Price', '@product.ImageUrl')" class="btn btn-success w-100">Order via WhatsApp</button>
+                    <button type="button"
+                            class="btn btn-success w-100 order-btn"
+                            data-id="@product.Id"
+                            data-name="@product.Name"
+                            data-price="@product.Price"
+                            data-image="@product.ImageUrl">
+                        <i class="bi bi-whatsapp"></i>
+                        Order via WhatsApp
+                    </button>
+
+
                 </div>
             </div>
         </div>

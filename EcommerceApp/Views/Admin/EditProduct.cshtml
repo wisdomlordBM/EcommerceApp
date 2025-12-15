@@ -2,38 +2,40 @@
 @{
     ViewData["Title"] = "Edit Product";
 }
-<div class="row justify-content-center">
+<div class="row justify-content-center mt-5">
     <div class="col-md-8">
-        <div class="card shadow">
-            <div class="card-body">
-                <h2 class="card-title">Edit Product</h2>
-                <form id="editProductForm">
-                    <input type="hidden" id="id" value="@Model.Id" />
+        <div class="card shadow border-0 rounded-3">
+            <div class="card-body p-4">
+                <h2 class="card-title text-center mb-4" style="color: #007bff;">Edit Product</h2>
+                <form id="editProductForm" enctype="multipart/form-data">
+                    <input type="hidden" name="id" id="id" value="@Model.Id" />
                     <div class="mb-3">
-                        <label class="form-label">Name</label>
-                        <input type="text" id="name" class="form-control" value="@Model.Name" required />
+                        <label class="form-label fw-bold" style="color: #007bff;">Name</label>
+                        <input type="text" name="name" id="name" class="form-control" value="@Model.Name" required />
                     </div>
                     <div class="mb-3">
-                        <label class="form-label">Description</label>
-                        <textarea id="description" class="form-control">@Model.Description</textarea>
+                        <label class="form-label fw-bold" style="color: #007bff;">Description</label>
+                        <textarea name="description" id="description" class="form-control">@Model.Description</textarea>
                     </div>
                     <div class="mb-3">
-                        <label class="form-label">Price</label>
-                        <input type="number" id="price" step=".01" class="form-control" value="@Model.Price" required />
+                        <label class="form-label fw-bold" style="color: #007bff;">Price</label>
+                        <input type="number" name="price" id="price" step=".01" class="form-control" value="@Model.Price" required />
                     </div>
                     <div class="mb-3">
-                        <label class="form-label">Stock</label>
-                        <input type="number" id="stock" class="form-control" value="@Model.Stock" required />
+                        <label class="form-label fw-bold" style="color: #007bff;">Stock</label>
+                        <input type="number" name="stock" id="stock" class="form-control" value="@Model.Stock" required />
                     </div>
                     <div class="mb-3">
-                        <label class="form-label">Category</label>
-                        <input type="text" id="category" class="form-control" value="@Model.Category" required />
+                        <label class="form-label fw-bold" style="color: #007bff;">Category</label>
+                        <input type="text" name="category" id="category" class="form-control" value="@Model.Category" required />
                     </div>
                     <div class="mb-3">
-                        <label class="form-label">Image URL</label>
-                        <input type="text" id="imageUrl" class="form-control" value="@Model.ImageUrl" required />
+                        <label class="form-label fw-bold" style="color: #007bff;">Image (Change if needed)</label>
+                        <input type="file" name="imageFile" id="imageFile" class="form-control" accept="image/*" />
+                        <img id="imagePreview" src="@Model.ImageUrl" alt="Preview" class="mt-3 img-thumbnail" style="max-height: 250px;" />
+                        <input type="hidden" name="existingImageUrl" value="@Model.ImageUrl" />
                     </div>
-                    <button class="btn btn-primary w-100">Update Product</button>
+                    <button type="submit" class="btn btn-primary w-100">Update Product</button>
                 </form>
                 <div id="editProductMsg" class="mt-3"></div>
             </div>

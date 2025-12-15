@@ -59,7 +59,7 @@ static async Task SeedData(UserManager<IdentityUser<Guid>> userManager, RoleMana
         {
             UserName = adminEmail,
             Email = adminEmail,
-            PhoneNumber = "+1234567890"
+            PhoneNumber = "+2348032110372"
         };
         await userManager.CreateAsync(admin, "AdminPassword123!");
         await userManager.AddToRoleAsync(admin, "Admin");
